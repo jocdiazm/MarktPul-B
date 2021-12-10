@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/jocdiazm/MarktPul-B/issues"
   },
-  "homepage": "https://github.com/jocdiazm/MarktPul-B#readme"
+  "homepage": "https://github.com/jocdiazm/MarktPul-B#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.1.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15"
+  }
 }
