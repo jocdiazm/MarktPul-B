@@ -1,0 +1,20 @@
+{
+  "name": "marktpul-b",
+  "version": "1.0.0",
+  "description": "Una plataforma que te permita organizar \"Mercados\" para poder vender, comprar, alquilar cualquier tipo de producto* o servicio. Esto es un\"Mercado de las pulgas\" (Flea market) online. ## Acerca de este repositorio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jocdiazm/MarktPul-B.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jocdiazm/MarktPul-B/issues"
+  },
+  "homepage": "https://github.com/jocdiazm/MarktPul-B#readme"
+}
