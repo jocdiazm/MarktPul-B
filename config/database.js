@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const URI ='mongodb+srv://marktpul_user:SVO87P7U0cchznst@marktcluster.ikcnf.mongodb.net/Markt-Pul?retryWrites=true&w=majority'
+const URI = process.env.DB_URI
 
 async function connectDB() {
   try {
