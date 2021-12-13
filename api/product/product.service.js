@@ -1,4 +1,4 @@
-const Product = require('./product.schema');
+const Product = require('./product.model');
 /**
  * Get all products
  * @returns all products
