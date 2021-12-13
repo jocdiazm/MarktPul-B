@@ -16,7 +16,7 @@ app.listen(PORT, () => {
   connectDB();
 
   // Routes
-  // routes(app);
+  routes(app);
 
   console.log(`Server running 🤖 at http://localhost:${PORT}/`);
 });
