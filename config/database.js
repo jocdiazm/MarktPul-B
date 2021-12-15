@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
+const { config } = require('./index')
 
-const URI = process.env.DB_URI
+const URI = config.URI
 
 async function connectDB() {
+  console.log('uri', URI)
   try {
     await mongoose.connect(URI, {
       useNewUrlParser: true,
