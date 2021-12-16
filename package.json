@@ -4,6 +4,7 @@
   "description": "Una plataforma que te permita organizar \"Mercados\" para poder vender, comprar, alquilar cualquier tipo de producto* o servicio. Esto es un\"Mercado de las pulgas\" (Flea market) online. ## Acerca de este repositorio",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
