@@ -3,12 +3,13 @@ const express = require('express');
 const expressConfig = require('./config/express');
 const connectDB = require('./config/database');
 const routes = require('./routes');
+const { config } = require('./config/index')
 
 const app = express();
 
 expressConfig(app);
 
-const PORT = 3002
+const PORT = config.PORT
 
 // Start server
 app.listen(PORT, () => {

@@ -26,17 +26,22 @@ const userSchema = new Schema({
   },
   email : {
     type: String,
-    required : true
+    lowercase: true,
+    required: [true, "can't be blank"],
+    match: [/\S+@\S+\.\S+/, 'is invalid'],
+    index: true,
+    trim: true,
   },
   login : {
-    uuid : String,
     username : {
-      type : String,
-      required : true
+      type: String, lowercase: true,
+      index: true,
+      uppercase: true,
     },
     password : {
       type : String,
-      required : true
+      required : true,
+      trim: true,
     },
     salt : String,
     md5 : String,
@@ -58,7 +63,17 @@ const userSchema = new Schema({
     medium : String,
     thumbnail : String
   },
-  nat : String
+  nat : String,
+  role: {
+    type: String,
+    default: 'user',
+    required: true,
+  },
+  marketId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Market',
+    required: true,
+  },
 })
 
 module.exports = mongoose.model('User', userSchema)
