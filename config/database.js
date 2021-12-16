@@ -4,7 +4,6 @@ const { config } = require('./index')
 const URI = config.URI
 
 async function connectDB() {
-  console.log('uri', URI)
   try {
     await mongoose.connect(URI, {
       useNewUrlParser: true,
