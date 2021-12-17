@@ -39,11 +39,6 @@ const MarketSchema = new Schema({
   },
   category: [],
   images: [],
-  // productId: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Product',
-  //   required: true,
-  // },
 })
 
 module.exports = mongoose.model('Market', MarketSchema)
