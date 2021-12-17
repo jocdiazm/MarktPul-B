@@ -24,10 +24,7 @@ const MarketSchema = new Schema({
     latitude: String,
     longitude: String,
   },
-  timezone: {
-    offset: String,
-    description: String,
-  }
+  timezone: String,
   },
   virtual: {
     type: Boolean,

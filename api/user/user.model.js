@@ -19,10 +19,7 @@ const userSchema = new Schema({
       latitude : String,
       longitude : String
     },
-    timezone : {
-      offset : String,
-      description : String
-    }
+    timezone : String,
   },
   email : {
     type: String,
