@@ -34,8 +34,9 @@ const MarketSchema = new Schema({
     medium: String,
     thumbnail: String,
   },
-  category: [],
-  images: [],
+  category: String,
+  image: String,
+  place: String
 })
 
 module.exports = mongoose.model('Market', MarketSchema)

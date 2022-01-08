@@ -6,6 +6,7 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
+  imageMain: String,
   images : [],
   title : {
     type: String,
@@ -21,7 +22,7 @@ const productSchema = new Schema({
     medium: String,
     thumbnail: String,
   },
-  category: [],
+  category: String,
   date: {
     pubdate: Date,
     enddate: Date,

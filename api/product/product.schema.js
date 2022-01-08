@@ -8,9 +8,10 @@ const ParamsSchema = Joi.object({
 
 const PayloadSchema = Joi.object().keys({
   price: Joi.number().required(),
+  imageMain: Joi.string().required(),
   images: Joi.array(),
   title: Joi.string().required().min(5).max(40),
-  description: Joi.string().required().min(10).max(250),
+  description: Joi.string().required().min(10).max(400),
   stock: Joi.number(),
   thumbnail: Joi.string(),
   category: Joi.string(),
