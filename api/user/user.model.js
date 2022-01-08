@@ -29,22 +29,20 @@ const userSchema = new Schema({
     index: true,
     trim: true,
   },
-  login : {
-    username : {
-      type: String, lowercase: true,
-      index: true,
-      uppercase: true,
-    },
-    password : {
-      type : String,
-      required : true,
-      trim: true,
-    },
-    salt : String,
-    md5 : String,
-    sha1 : String,
-    sha256 : String
+  username : {
+    type: String, lowercase: true,
+    index: true,
+    uppercase: true,
   },
+  password : {
+    type : String,
+    required : true,
+    trim: true,
+  },
+  salt : String,
+  md5 : String,
+  sha1 : String,
+  sha256 : String,
   dob : {
     date : Date,
     age: Number

@@ -13,7 +13,6 @@ const validate = (schema, property) => (req, res, next) => {
     })
   }
   // req.body = value;
-  // console.log('req.body', req.body)
   next()
 }
 

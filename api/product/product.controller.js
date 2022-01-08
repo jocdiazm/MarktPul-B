@@ -22,7 +22,6 @@ async function getAllProductsHandler(req, res) {
 
 async function createProductHandler(req, res) {
   const { price, description, title } = req.body
-  console.log('body', price, description, title)
   try {
 
     if(!price || !description || !title){

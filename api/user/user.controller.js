@@ -33,7 +33,6 @@ async function getUserByIdHandler(req, res) {
   const { id } = req.params;
   try {
     const user = await getUserById(id);
-
     if (!user) {
       return res.status(404).json({ message: `user not found with id: ${id}` });
     }

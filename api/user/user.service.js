@@ -17,9 +17,9 @@ async function getAllUsers (){
  * @param {string} id Indentifier of the note to be filtered
  * @returns user
  */
-async function getUserById(){
+async function getUserById(id){
     try {
-        const user= await User.findById(id);
+        const user = await User.findById(id).populate('marketId');
         return user;
     } catch (error) {
         throw error;
