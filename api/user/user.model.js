@@ -64,11 +64,11 @@ const userSchema = new Schema({
     default: 'user',
     required: true,
   },
-  marketId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Market',
+  marketId: [{
+    type: String,
+    ref:'Market',
     required: true,
-  },
+  }]
 })
 
 module.exports = mongoose.model('User', userSchema)

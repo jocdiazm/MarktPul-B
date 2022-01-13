@@ -4,7 +4,6 @@ const validate = (schema, property) => (req, res, next) => {
     [property]: req[property]
   })
 
-  console.log('value', value, 'error', error)
   const hasError = error
 
   if(hasError){

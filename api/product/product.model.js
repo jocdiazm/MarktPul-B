@@ -27,11 +27,11 @@ const productSchema = new Schema({
     pubdate: Date,
     enddate: Date,
   },
-  marketId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Market',
+  marketId: [{
+    type: String,
+    ref:'Market',
     required: true,
-  },
+  }],
 })
 
 module.exports = mongoose.model('Product', productSchema)

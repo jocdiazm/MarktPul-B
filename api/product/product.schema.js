@@ -15,7 +15,7 @@ const PayloadSchema = Joi.object().keys({
   stock: Joi.number(),
   thumbnail: Joi.string(),
   category: Joi.string(),
-  marketId: Joi.objectId().required()
+  marketId: Joi.array().required()
 })
 
 const ProductSchema = Joi.object().keys({
