@@ -6,6 +6,7 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
+  imageMain: String,
   images : [],
   title : {
     type: String,
@@ -21,16 +22,16 @@ const productSchema = new Schema({
     medium: String,
     thumbnail: String,
   },
-  category: [],
+  category: String,
   date: {
     pubdate: Date,
     enddate: Date,
   },
-  marketId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Market',
+  marketId: [{
+    type: String,
+    ref:'Market',
     required: true,
-  },
+  }],
 })
 
 module.exports = mongoose.model('Product', productSchema)

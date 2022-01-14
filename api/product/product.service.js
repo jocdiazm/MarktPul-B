@@ -19,7 +19,7 @@ async function getAllProducts (){
  */
 async function getProductById(id){
     try {
-        const product= await Product.findById(id);
+        const product= await Product.findById(id).populate('marketId');
         return product;
     } catch (error) {
         throw error;

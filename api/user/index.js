@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const { UserSchema } = require('./user.schema')
+const { validate } = require('../../middleware/validateRequest')
 
 const {
   createUserHandler,
@@ -11,8 +13,8 @@ const {
 const router = Router();
 
 router.get('/', getAllUsersHandler);
-router.post('/', createUserHandler);
-router.get('/:id', getUserByIdHandler);
+router.post('/', validate(UserSchema, 'body'), createUserHandler);
+router.get('/:id', validate(UserSchema, 'params'), getUserByIdHandler);
 router.delete('/:id', deleteUserHandler);
 router.patch('/:id', updateUserHandler);
 

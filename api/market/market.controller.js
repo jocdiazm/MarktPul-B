@@ -51,9 +51,9 @@ async function getMarketByIdHandler(req, res) {
 async function updateMarketHandler(req, res) {
   const { id } = req.params;
   try {
-    const { title, description, organizer } = req.body
+    const { title, description, organizer, place } = req.body
 
-    if(!title && !description && !organizer){
+    if(!title && !description && !organizer && !place){
       return res.status(422).json({ response: 'Missing values in the body' })
     }
 
