@@ -1,4 +1,4 @@
-const Joi = require('Joi');
+const Joi = require('joi');
 const joiObjectId = require('joi-objectid')
 Joi.objectId = joiObjectId(Joi)
 
