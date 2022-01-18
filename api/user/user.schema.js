@@ -1,16 +1,20 @@
-const Joi = require('Joi');
-const joiObjectId = require('joi-objectid')
-Joi.objectId = joiObjectId(Joi)
+const Joi = require('joi');
+const joiObjectId = require('joi-objectid');
+Joi.objectId = joiObjectId(Joi);
 
 const ParamsSchema = Joi.object({
-  id: Joi.objectId().required()
-})
+  id: Joi.objectId().required(),
+});
 
 const PayloadSchema = Joi.object().keys({
   name: Joi.string().min(3).max(50),
   location: Joi.string(),
-  email: Joi.string().required()
-  .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'es', 'co'] } }),
+  email: Joi.string()
+    .required()
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ['com', 'net', 'es', 'co'] },
+    }),
   username: Joi.string().min(3).max(30),
   password: Joi.string().required().min(8),
   salt: Joi.string(),
@@ -24,14 +28,14 @@ const PayloadSchema = Joi.object().keys({
   picture: Joi.string(),
   nat: Joi.string(),
   role: Joi.string().default('user'),
-  marketId: Joi.objectId().required()
-})
+  marketId: Joi.objectId().required(),
+});
 
 const UserSchema = Joi.object().keys({
   body: PayloadSchema,
   params: ParamsSchema,
-})
+});
 
 module.exports = {
-  UserSchema
-}
+  UserSchema,
+};

@@ -1,10 +1,10 @@
-const Joi = require('Joi');
-const joiObjectId = require('joi-objectid')
-Joi.objectId = joiObjectId(Joi)
+const Joi = require('joi');
+const joiObjectId = require('joi-objectid');
+Joi.objectId = joiObjectId(Joi);
 
 const ParamsSchema = Joi.object({
-  id: Joi.objectId().required()
-})
+  id: Joi.objectId().required(),
+});
 
 const PayloadSchema = Joi.object().keys({
   price: Joi.number().required(),
@@ -15,14 +15,14 @@ const PayloadSchema = Joi.object().keys({
   stock: Joi.number(),
   thumbnail: Joi.string(),
   category: Joi.string(),
-  marketId: Joi.objectId().required()
-})
+  marketId: Joi.objectId().required(),
+});
 
 const ProductSchema = Joi.object().keys({
   body: PayloadSchema,
   params: ParamsSchema,
-})
+});
 
 module.exports = {
-  ProductSchema
-}
+  ProductSchema,
+};

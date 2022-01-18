@@ -1,10 +1,10 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const config = {
   URI: process.env.DB_URI,
-  PORT: process.env.PORT
-}
+  PORT: process.env.PORT,
+};
 
 module.exports = {
-  config
-}
+  config,
+};
