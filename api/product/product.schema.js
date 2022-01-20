@@ -10,7 +10,7 @@ const PayloadSchema = Joi.object().keys({
   price: Joi.number().required(),
   imageMain: Joi.string(),
   images: Joi.array(),
-  title: Joi.string().required().min(5).max(40),
+  title: Joi.string().required().min(3).max(40),
   description: Joi.string().required().min(10).max(400),
   stock: Joi.number(),
   thumbnail: Joi.string(),

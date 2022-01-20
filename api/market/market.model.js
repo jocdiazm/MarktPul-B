@@ -8,7 +8,6 @@ const MarketSchema = new Schema({
   },
   description : {
     type: String,
-    required: true,
   },
   organizer: {
     type: String,

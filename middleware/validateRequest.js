@@ -3,6 +3,8 @@ const validate = (schema, property) => (req, res, next) => {
   const { value, error } = schema.validate({
     [property]: req[property]
   })
+  console.log('value', value)
+  console.log('product', typeof value.body.price)
   const hasError = error
 
   if(hasError){

@@ -1,5 +1,7 @@
-const fs = require('fs')
-const cloudinary = require('cloudinary').v2
+// const fs = require('fs')
+// const cloudinary = require('cloudinary').v2
+
+// const { uploadArrayHandler } = require('../upload/upload')
 
 const {
   getAllProducts,
@@ -24,18 +26,17 @@ async function getAllProductsHandler(req, res) {
 }
 
 async function createProductHandler(req, res) {
-  const { price, description, title, imageMain } = req.body;
-  try {
+  const { price, description, title } = req.body;
+  try{
     if(!price || !description || !title){
       return res.status(422).json({ response: 'Missing values in the body' })
     }
-    const result = await cloudinary.uploader.upload(imageMain, { folder:'Markt-Pul/Products'})
-    const newProduct = {...req.body, imageMain: result.url}
-    const product = await createProduct(newProduct);
+    const product = await createProduct(req.body);
     return res.status(201).json(product);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  }catch(error){
+    res.status(500).json(error)
   }
+  res.send(req.file)
 }
 
 async function getProductByIdHandler(req, res) {
