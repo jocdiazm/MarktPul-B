@@ -8,7 +8,7 @@ const ParamsSchema = Joi.object({
 
 const PayloadSchema = Joi.object().keys({
   title: Joi.string().required().min(3).max(50),
-  description: Joi.string().required().min(10).max(250),
+  description: Joi.string().min(10).max(250),
   organizer: Joi.string().required(),
   address: Joi.string(),
   virtual: Joi.boolean(),

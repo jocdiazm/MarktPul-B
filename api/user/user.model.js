@@ -36,12 +36,18 @@ const userSchema = new Schema(
       lowercase: true,
       index: true,
       uppercase: true,
+      required: true,
     },
     password: {
       type: String,
       required: true,
       trim: true,
     },
+    /* confirmPassword: {
+      type: String,
+      required: true,
+      trim: true,
+    }, */
     salt: String,
     md5: String,
     sha1: String,

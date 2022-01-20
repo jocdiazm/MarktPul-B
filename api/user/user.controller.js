@@ -5,8 +5,10 @@ const {
   getUserById,
   updateUser,
 } = require('./user.service');
+const { createMarket } = require('../market/market.service');
+const { signToken } = require('../auth/auth.services');
 const User = require('./user.model');
-const jsonwebtoken = require('jsonwebtoken');
+
 async function getAllUsersHandler(req, res) {
   try {
     const users = await getAllUsers();
@@ -23,7 +25,20 @@ async function getAllUsersHandler(req, res) {
 
 async function createUserHandler(req, res) {
   try {
-    const user = await createUser(req.body);
+    const { username } = req.body;
+    const marketData = {
+      title: `el mercado de ${username}`,
+      description: '',
+      organizer: username,
+    };
+    const market = await createMarket(marketData);
+
+    const { _id } = market;
+    const newUser = {
+      ...req.body,
+      marketId: _id,
+    };
+    const user = await createUser(newUser);
     return res.status(201).json(user);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -90,9 +105,7 @@ async function loginUSerHandler(req, res) {
       });
     }
     //creamos el token
-    const token = jsonwebtoken.sign(user.profile, 'S0p0rt31', {
-      expiresIn: '1h',
-    });
+    const token = signToken(user.profile);
     res.status(200).json({ JWT: token });
   } catch (error) {
     res.status(400).json(error);

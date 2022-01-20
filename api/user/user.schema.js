@@ -28,7 +28,8 @@ const PayloadSchema = Joi.object().keys({
   picture: Joi.string(),
   nat: Joi.string(),
   role: Joi.string().default('user'),
-  marketId: Joi.objectId().required(),
+  marketId: Joi.objectId(),
+  //required(),
 });
 
 const UserSchema = Joi.object().keys({
