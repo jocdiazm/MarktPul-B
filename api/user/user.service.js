@@ -1,4 +1,5 @@
 const User = require('./user.model');
+const { sendEmail } = require('../../utils/email');
 /**
  * Get all users
  * @returns all users
@@ -33,6 +34,7 @@ async function getUserById(id) {
 async function createUser(user) {
   try {
     const newUser = await User.create(user);
+
     return newUser;
     /* const newUser = new User(user);
     const savedUser = await newUser.save();

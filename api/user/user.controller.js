@@ -1,3 +1,6 @@
+const crypto = require('crypto');
+const { sendEmail } = require('../../utils/email');
+
 const {
   getAllUsers,
   createUser,
@@ -9,6 +12,7 @@ const {
 } = require('./user.service');
 const { createMarket } = require('../market/market.service');
 const User = require('./user.model');
+
 async function getAllUsersHandler(req, res) {
   try {
     const users = await getAllUsers();
@@ -50,8 +54,35 @@ async function createUserHandler(req, res) {
       ...req.body,
       marketId: _id,
     };
-    const user = await createUser(newUser);
-    return res.status(201).json(user);
+
+    try {
+      const hash = crypto
+        .createHash('sha256')
+        .update(newUser.email)
+        .digest('hex');
+
+      newUser.passwordResetToken = hash;
+      newUser.passwordResetExpires = Date.now() + 3600000 * 24; // 24 hour
+
+      const user = await createUser(newUser);
+
+      const email = {
+        to: user.email,
+        subject: '¡Activa tu cuenta en Marktpul!',
+        template_id: 'd-7300e5c8c797411991fc03c9e2358927',
+        dynamic_template_data: {
+          username: user.username,
+          url: `http://localhost:8080/activate/${hash}`,
+        },
+      };
+      sendEmail(email);
+      return res.status(201).json(user.profile);
+    } catch (error) {
+      console.error(error);
+      res.status(400).json(Error);
+    }
+
+    // return res.status(201).json(user.profile);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
