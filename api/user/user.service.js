@@ -32,9 +32,11 @@ async function getUserById(id) {
  */
 async function createUser(user) {
   try {
-    const newUser = new User(user);
+    const newUser = await User.create(user);
+    return newUser;
+    /* const newUser = new User(user);
     const savedUser = await newUser.save();
-    return savedUser;
+    return savedUser; */
   } catch (error) {
     throw error;
   }
@@ -73,6 +75,32 @@ async function getUserByEmail(email) {
     throw error;
   }
 }
+async function findOneUser(query) {
+  const user = await User.findOne(query);
+  return user;
+}
+async function ValidateUserEmail(email) {
+  try {
+    const isMatch = await User.findOne({ email });
+    if (isMatch) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+async function ValidateUserName(username) {
+  try {
+    const isMatch = await User.findOne({ username });
+    if (isMatch) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {}
+}
 module.exports = {
   getAllUsers,
   getUserById,
@@ -80,4 +108,7 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserByEmail,
+  findOneUser,
+  ValidateUserEmail,
+  ValidateUserName,
 };

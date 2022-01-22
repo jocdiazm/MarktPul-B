@@ -4,11 +4,11 @@ const {
   deleteUser,
   getUserById,
   updateUser,
+  ValidateUserEmail,
+  ValidateUserName,
 } = require('./user.service');
 const { createMarket } = require('../market/market.service');
-const { signToken } = require('../auth/auth.services');
 const User = require('./user.model');
-
 async function getAllUsersHandler(req, res) {
   try {
     const users = await getAllUsers();
@@ -25,7 +25,19 @@ async function getAllUsersHandler(req, res) {
 
 async function createUserHandler(req, res) {
   try {
-    const { username } = req.body;
+    const { username, email } = req.body;
+    const matchUserEmail = await ValidateUserEmail(email);
+    if (matchUserEmail) {
+      return res.status(403).json({
+        error: 'used email',
+      });
+    }
+    const matchUserName = await ValidateUserName(username);
+    if (matchUserName) {
+      return res.status(403).json({
+        error: 'used username',
+      });
+    }
     const marketData = {
       title: `el mercado de ${username}`,
       description: '',
@@ -88,34 +100,11 @@ async function deleteUserHandler(req, res) {
     return res.status(500).json({ error: error.message });
   }
 }
-async function loginUSerHandler(req, res) {
-  const { email, password } = req.body;
-  try {
-    /* buscamos el usuario y si no encontramos nos retornara un mensaje de usuario no encontrado */
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({
-        message: 'User not found',
-      });
-    }
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(400).json({
-        message: 'Invalid password',
-      });
-    }
-    //creamos el token
-    const token = signToken(user.profile);
-    res.status(200).json({ JWT: token });
-  } catch (error) {
-    res.status(400).json(error);
-  }
-}
+
 module.exports = {
   getAllUsersHandler,
   createUserHandler,
   getUserByIdHandler,
   updateUserHandler,
   deleteUserHandler,
-  loginUSerHandler,
 };
