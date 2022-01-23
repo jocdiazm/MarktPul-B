@@ -9,6 +9,7 @@ const {
 } = require('./user.service');
 const { createMarket } = require('../market/market.service');
 const User = require('./user.model');
+const { signToken } = require('../../auth/auth.services')
 
 async function getAllUsersHandler(req, res) {
   try {
@@ -105,7 +106,9 @@ async function loginUSerHandler(req, res) {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
+
     if (!user) {
+      console.log('no hay user')
       return res.status(400).json({
         message: 'User not found',
       });

@@ -2,8 +2,8 @@ const jsonwebtoken = require('jsonwebtoken');
 const compose = require('composable-middleware');
 const { getUserByEmail } = require('../api/user/user.service');
 const { config } = require('../config');
+
 function signToken(payload) {
-  //creamos el token
   const token = jsonwebtoken.sign(payload, config.secrets.session, {
     expiresIn: config.expiresIn,
   });
@@ -14,7 +14,6 @@ function isAuthenticated() {
     try {
       //obtenemos el token de autorizacion
       const authHeader = req.headers.authorization;
-
       if (authHeader) {
         const [, token] = authHeader.split(' ');
         //validamos el token
