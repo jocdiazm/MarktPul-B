@@ -10,11 +10,14 @@ const {
   updateUserHandler,
   loginUSerHandler,
 } = require('./user.controller');
+
 const { isAuthenticated } = require('../auth/auth.services');
+
 const router = Router();
 
 router.get('/', isAuthenticated, getAllUsersHandler);
-router.post('/', validate(UserSchema, 'body'), createUserHandler);
+router.post('/', createUserHandler);
+// router.post('/', validate(UserSchema, 'body'), createUserHandler);
 router.post('/login', loginUSerHandler);
 router.get(
   '/:id',

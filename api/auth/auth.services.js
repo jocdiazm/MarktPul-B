@@ -1,11 +1,13 @@
 const jsonwebtoken = require('jsonwebtoken');
 const { getUserByEmail } = require('../user/user.service');
+
 const config = {
   secrets: {
     session: 'S0p0rt31',
   },
-  expiresIn: '1h',
+  expiresIn: '3h',
 };
+
 function signToken(payload) {
   //creamos el token
   const token = jsonwebtoken.sign(payload, config.secrets.session, {
@@ -13,6 +15,7 @@ function signToken(payload) {
   });
   return token;
 }
+
 async function isAuthenticated(req, res, next) {
   //obtenemos el token de autorizacion
   const authHeader = req.headers.authorization;
@@ -23,14 +26,15 @@ async function isAuthenticated(req, res, next) {
     });
   }
   const [, token] = authHeader.split(' ');
-  //validamos el token
+  // //validamos el token
+  // console.log('token', token)
   const payload = await validateToken(token);
   if (!payload) {
     return res.status(401).json({
       message: 'unauthorized',
     });
   }
-  //atach user to request
+  // //atach user to request
   const user = await getUserByEmail(payload.email);
   if (!user) {
     return res.status(401).json({

@@ -27,7 +27,6 @@ async function createProductHandler(req, res) {
     if(!price || !description || !title){
       return res.status(422).json({ response: 'Missing values in the body' })
     }
-
     const product = await createProduct(req.body);
     return res.status(201).json(product);
   } catch (error) {

@@ -3,8 +3,46 @@ const bcrypt = require('bcrypt');
 const { UserSchema } = require('./user.schema');
 const { Schema } = mongoose;
 
-const userSchema = new Schema(
+const CreditCardSchema = new mongoose.Schema(
   {
+    expMonth: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    expYear: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    mask: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    tokenId: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  },
+  { _id: false },
+);
+
+const BillingSchema = new mongoose.Schema(
+  {
+    creditCards: [CreditCardSchema],
+    customerId: String,
+  },
+  { _id: false },
+);
+
+const userSchema = new Schema({
     gender: String,
     name: {
       title: String,
@@ -77,7 +115,7 @@ const userSchema = new Schema(
     marketId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Market',
-      required: true,
+      // required: true,
     },
     active: {
       type: Boolean,
@@ -85,42 +123,36 @@ const userSchema = new Schema(
     },
     passwordResetToken: String,
     passwordResetExpires: Date,
+    billing: BillingSchema,
   },
   {
     timestamps: true,
   },
 );
-//hook de monggose cada vez que se guarde un usuario
+
 userSchema.pre('save', async function (next) {
-  //definimos la variable user que representara a mi mismo
   const user = this;
   try {
     if (!user.isModified('password')) {
       return next();
     }
-    //generamos una cadena aleatoria
     const salt = await bcrypt.genSalt(10);
-    //generamos el hash
     const hash = await bcrypt.hash(user.password, salt);
     user.password = hash;
-    //generamos el password hash
   } catch (error) {
     next(error);
   }
 });
 
-//comparamos
 userSchema.methods.comparePassword = async function (candidatePassword) {
   const user = this;
   try {
-    //comparamos el password que nos llegue y compara con el campo password
     return await bcrypt.compare(candidatePassword, user.password);
   } catch (error) {
     throw error;
   }
 };
 
-//virtual
 userSchema.virtual('profile').get(function () {
   const { email, role } = this;
   return { role, email };

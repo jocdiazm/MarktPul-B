@@ -91,7 +91,6 @@ async function deleteUserHandler(req, res) {
 async function loginUSerHandler(req, res) {
   const { email, password } = req.body;
   try {
-    /* buscamos el usuario y si no encontramos nos retornara un mensaje de usuario no encontrado */
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
@@ -104,7 +103,6 @@ async function loginUSerHandler(req, res) {
         message: 'Invalid password',
       });
     }
-    //creamos el token
     const token = signToken(user.profile);
     res.status(200).json({ JWT: token });
   } catch (error) {
