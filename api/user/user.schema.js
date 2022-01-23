@@ -15,7 +15,7 @@ const PayloadSchema = Joi.object().keys({
       minDomainSegments: 2,
       tlds: { allow: ['com', 'net', 'es', 'co'] },
     }),
-  username: Joi.string().min(3).max(30),
+  username: Joi.string().required().min(3).max(30),
   password: Joi.string().required().min(8),
   salt: Joi.string(),
   md5: Joi.string(),

@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { UserSchema } = require('./user.schema');
 const { Schema } = mongoose;
+const config = require('../../config');
 
-const CreditCardSchema = new mongoose.Schema(
-  {
+const CreditCardSchema = new mongoose.Schema({
     expMonth: {
       type: String,
       required: true,
@@ -109,7 +109,7 @@ const userSchema = new Schema({
     role: {
       type: String,
       default: 'user',
-      enum: ['user', 'admin'],
+      enum: config.userRoles,
       required: true,
     },
     marketId: {

@@ -4,9 +4,10 @@ const {
   deleteUser,
   getUserById,
   updateUser,
+  ValidateUserEmail,
+  ValidateUserName,
 } = require('./user.service');
 const { createMarket } = require('../market/market.service');
-const { signToken } = require('../auth/auth.services');
 const User = require('./user.model');
 
 async function getAllUsersHandler(req, res) {
@@ -25,7 +26,19 @@ async function getAllUsersHandler(req, res) {
 
 async function createUserHandler(req, res) {
   try {
-    const { username } = req.body;
+    const { username, email } = req.body;
+    const matchUserEmail = await ValidateUserEmail(email);
+    if (matchUserEmail) {
+      return res.status(403).json({
+        error: 'used email',
+      });
+    }
+    const matchUserName = await ValidateUserName(username);
+    if (matchUserName) {
+      return res.status(403).json({
+        error: 'used username',
+      });
+    }
     const marketData = {
       title: `el mercado de ${username}`,
       description: '',
@@ -109,11 +122,12 @@ async function loginUSerHandler(req, res) {
     res.status(400).json(error);
   }
 }
+
 module.exports = {
   getAllUsersHandler,
   createUserHandler,
   getUserByIdHandler,
   updateUserHandler,
   deleteUserHandler,
-  loginUSerHandler,
+  loginUSerHandler
 };

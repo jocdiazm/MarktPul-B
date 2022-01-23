@@ -21,6 +21,7 @@
   "homepage": "https://github.com/jocdiazm/MarktPul-B#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "composable-middleware": "^0.3.0",
     "cors": "^2.8.5",
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",

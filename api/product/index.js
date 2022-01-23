@@ -9,7 +9,7 @@ const {
   getProductByIdHandler,
   updateProductHandler,
 } = require('./product.controller');
-const { isAuthenticated } = require('../auth/auth.services');
+const { isAuthenticated } = require('../../auth/auth.services');
 const router = Router();
 
 router.get('/', isAuthenticated, getAllProductsHandler);
