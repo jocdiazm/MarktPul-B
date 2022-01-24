@@ -1,10 +1,10 @@
-const Joi = require('Joi');
-const joiObjectId = require('joi-objectid')
-Joi.objectId = joiObjectId(Joi)
+const Joi = require('joi');
+const joiObjectId = require('joi-objectid');
+Joi.objectId = joiObjectId(Joi);
 
 const ParamsSchema = Joi.object({
-  id: Joi.objectId().required()
-})
+  id: Joi.objectId().required(),
+});
 
 const PayloadSchema = Joi.object().keys({
   title: Joi.string().required().min(3).max(50),
@@ -18,13 +18,13 @@ const PayloadSchema = Joi.object().keys({
   thumbnail: Joi.string().optional().allow(""),
   category: Joi.string().optional().allow(""),
   image: Joi.string().optional().allow(""),
-})
+});
 
 const MarketSchema = Joi.object().keys({
   body: PayloadSchema,
   params: ParamsSchema,
-})
+});
 
 module.exports = {
-  MarketSchema
-}
+  MarketSchema,
+};

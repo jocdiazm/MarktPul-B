@@ -11,14 +11,26 @@ const {
   getProductByIdHandler,
   updateProductHandler,
 } = require('./product.controller');
-
+const { isAuthenticated } = require('../../auth/auth.services');
 const router = Router();
 
-router.get('/', getAllProductsHandler);
-router.post('/', upload.any(), createProductHandler);
+router.get('/', isAuthenticated, getAllProductsHandler);
+router.post('/', isAuthenticated, upload.any(), createProductHandler);
 // router.post('/', upload.any(), validate(ProductSchema, 'body'), createProductHandler);
-router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
-router.delete('/:id', deleteProductHandler);
-router.patch('/:id', updateProductHandler);
+// router.post(
+//   '/',
+//   isAuthenticated,
+//   upload.any(),
+//   validate(ProductSchema, 'body'),
+//   createProductHandler,
+// );
+router.get(
+  '/:id',
+  isAuthenticated,
+  validate(ProductSchema, 'params'),
+  getProductByIdHandler,
+);
+router.delete('/:id', isAuthenticated, deleteProductHandler);
+router.patch('/:id', isAuthenticated, updateProductHandler);
 
 module.exports = router;

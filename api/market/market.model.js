@@ -1,12 +1,12 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const MarketSchema = new Schema({
-  title : {
+  title: {
     type: String,
     required: true,
   },
-  description : {
+  description: {
     type: String,
   },
   organizer: {
@@ -37,7 +37,7 @@ const MarketSchema = new Schema({
   },
   category: String,
   image: String,
-  place: String
-})
+  place: String,
+});
 
-module.exports = mongoose.model('Market', MarketSchema)
+module.exports = mongoose.model('Market', MarketSchema);

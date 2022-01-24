@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const { UserSchema } = require('./user.schema')
-const { validate } = require('../../middleware/validateRequest')
+const { UserSchema } = require('./user.schema');
+const { validate } = require('../../middleware/validateRequest');
 
 const {
   createUserHandler,
@@ -8,14 +8,24 @@ const {
   getAllUsersHandler,
   getUserByIdHandler,
   updateUserHandler,
+  loginUSerHandler
 } = require('./user.controller');
+
+const { isAuthenticated } = require('../../auth/auth.services');
 
 const router = Router();
 
-router.get('/', getAllUsersHandler);
+router.get('/', isAuthenticated, getAllUsersHandler);
+router.post('/', createUserHandler);
+router.post('/login', loginUSerHandler);
 router.post('/', validate(UserSchema, 'body'), createUserHandler);
-router.get('/:id', validate(UserSchema, 'params'), getUserByIdHandler);
-router.delete('/:id', deleteUserHandler);
-router.patch('/:id', updateUserHandler);
+router.get(
+  '/:id',
+  isAuthenticated,
+  validate(UserSchema, 'params'),
+  getUserByIdHandler,
+);
+router.delete('/:id', isAuthenticated, deleteUserHandler);
+router.patch('/:id', isAuthenticated, updateUserHandler);
 
 module.exports = router;
