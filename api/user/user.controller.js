@@ -72,7 +72,7 @@ async function createUserHandler(req, res) {
         template_id: 'd-7300e5c8c797411991fc03c9e2358927',
         dynamic_template_data: {
           username: user.username,
-          url: `http://localhost:8080/activate/${hash}`,
+          url: `http://localhost:3000/activate/${hash}`,
         },
       };
       sendEmail(email);
