@@ -22,6 +22,7 @@ async function getAllMarketsHandler(req, res) {
 
 async function createMarketHandler(req, res) {
   const { title } = req.body
+  console.log('entra en createHandler')
   try {
     if(!title){
       return res.status(422).json({ response: 'Missing values in the body' })
