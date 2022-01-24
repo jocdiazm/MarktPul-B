@@ -12,7 +12,7 @@ const {
 const { isAuthenticated, hasRole } = require('../../auth/auth.services');
 const router = Router();
 
-router.get('/', isAuthenticated(), getAllMarketsHandler);
+router.get('/', getAllMarketsHandler);
 router.post(
   '/',
   isAuthenticated(),
