@@ -27,12 +27,17 @@ async function getAllProductsHandler(req, res) {
 
 async function createProductHandler(req, res) {
   const { price, description, title } = req.body;
+  const { user } = req
   try{
     if(!price || !description || !title){
       return res.status(422).json({ response: 'Missing values in the body' })
     }
-    const product = await createProduct(req.body);
-    return res.status(201).json(product);
+    const newProduct = {
+      ...req.body,
+      marketId: [user.marketId[0]]
+    }
+    const responseCreateProduct = await createProduct(newProduct);
+    return res.status(201).json(responseCreateProduct)
   }catch(error){
     res.status(500).json(error)
   }

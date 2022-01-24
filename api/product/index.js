@@ -14,16 +14,10 @@ const {
 const { isAuthenticated } = require('../../auth/auth.services');
 const router = Router();
 
-router.get('/', isAuthenticated, getAllProductsHandler);
-router.post('/', isAuthenticated, upload.any(), createProductHandler);
-// router.post('/', upload.any(), validate(ProductSchema, 'body'), createProductHandler);
-// router.post(
-//   '/',
-//   isAuthenticated,
-//   upload.any(),
-//   validate(ProductSchema, 'body'),
-//   createProductHandler,
-// );
+router.get('/', isAuthenticated(), getAllProductsHandler);
+router.post('/',
+ isAuthenticated(),
+  upload.any(), validate(ProductSchema, 'body'), createProductHandler);
 router.get(
   '/:id',
   isAuthenticated,
