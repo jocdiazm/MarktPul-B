@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const { config } = require('./index')
+const mongoose = require('mongoose');
+const { config } = require('./index');
 
-const URI = config.URI
+const URI = process.env.DB_URI;
 
 async function connectDB() {
   try {
