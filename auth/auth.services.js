@@ -12,7 +12,6 @@ function signToken(payload) {
 function isAuthenticated() {
   return compose().use(async (req, res, next) => {
     try {
-      console.log('entra en autenticacion')
       //obtenemos el token de autorizacion
       const authHeader = req.headers.authorization;
       if (authHeader) {
