@@ -26,7 +26,6 @@ async function makePaymentHandlers(req, res) {
     const paymentcreate = await Payment.create({
       userId: user._id,
       refId: data.recibo,
-      // bill: payment.bill,
       description: payment.description,
       value: payment.value,
       tax: payment?.tax,
