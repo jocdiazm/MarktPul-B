@@ -9,7 +9,6 @@ const PaymentSchema = mongoose.Schema(
     },
     bill: {
       type: String,
-      required: true,
       trim: true,
     },
     description: {

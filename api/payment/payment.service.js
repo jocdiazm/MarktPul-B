@@ -8,6 +8,7 @@ const epayco = require('epayco-sdk-node')({
 const { addBillingCards, addBillingCustomerId, } = require('../user/user.service')
 
 const get = require('lodash/get');
+const { log } = require('../../utils/logger');
 
 async function createCardToken(data, user) {
   const { cardNumber, cardExpYear, cardExpMonth, cardCVC } = data;
@@ -33,7 +34,7 @@ async function createCardToken(data, user) {
     const updateUser = await addBillingCards(user, creditCard);
     return updateUser
   } catch (error) {
-    console.log('error', error)
+    log.error('error', error)
   }
 }
 

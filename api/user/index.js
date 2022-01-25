@@ -8,16 +8,16 @@ const {
   getAllUsersHandler,
   getUserByIdHandler,
   updateUserHandler,
-  loginUSerHandler
+  getUserMeHandler
 } = require('./user.controller');
 
 const { isAuthenticated } = require('../../auth/auth.services');
 
 const router = Router();
 
-router.get('/', isAuthenticated, getAllUsersHandler);
+router.get('/', isAuthenticated(), getAllUsersHandler);
+router.get('/me', isAuthenticated(), getUserMeHandler);
 router.post('/', createUserHandler);
-router.post('/login', loginUSerHandler);
 router.post('/', validate(UserSchema, 'body'), createUserHandler);
 router.get(
   '/:id',
@@ -25,7 +25,7 @@ router.get(
   validate(UserSchema, 'params'),
   getUserByIdHandler,
 );
-router.delete('/:id', isAuthenticated, deleteUserHandler);
-router.patch('/:id', isAuthenticated, updateUserHandler);
+router.delete('/:id', isAuthenticated(), deleteUserHandler);
+router.patch('/:id', isAuthenticated(), updateUserHandler);
 
 module.exports = router;

@@ -12,6 +12,7 @@ function signToken(payload) {
 function isAuthenticated() {
   return compose().use(async (req, res, next) => {
     try {
+      console.log('entra en autenticacion')
       //obtenemos el token de autorizacion
       const authHeader = req.headers.authorization;
       if (authHeader) {
@@ -19,6 +20,7 @@ function isAuthenticated() {
         //validamos el token
         const payload = await validateToken(token);
         if (!payload) {
+          console.log('token no valido')
           return res
             .status(401)
             .json({
@@ -29,6 +31,7 @@ function isAuthenticated() {
         //atach user to request
         const user = await getUserByEmail(payload.email);
         if (!user) {
+          console.log('entra en no user')
           return res
             .status(401)
             .json({

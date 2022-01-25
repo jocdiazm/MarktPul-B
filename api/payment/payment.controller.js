@@ -17,14 +17,16 @@ async function makePaymentHandlers(req, res) {
         const customer = await createCustomer(createToken)
         userData = customer
       }
-    const { data, success } = await makePayment(userData, payment);
-    if (!success) {
+
+      const { data, success } = await makePayment(userData, payment);
+
+      if (!success) {
       return res.status(400).json(data);
     }
-    await Payment.create({
+    const paymentcreate = await Payment.create({
       userId: user._id,
       refId: data.recibo,
-      bill: payment.bill,
+      // bill: payment.bill,
       description: payment.description,
       value: payment.value,
       tax: payment?.tax,
