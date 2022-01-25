@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/jocdiazm/MarktPul-B#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.0",
     "bcrypt": "^5.0.1",
     "composable-middleware": "^0.3.0",
     "cors": "^2.8.5",

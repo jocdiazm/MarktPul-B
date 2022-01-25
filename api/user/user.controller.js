@@ -1,3 +1,6 @@
+const crypto = require('crypto');
+const { sendEmail } = require('../../utils/email');
+
 const {
   getAllUsers,
   createUser,
@@ -9,9 +12,12 @@ const {
 } = require('./user.service');
 const { createMarket } = require('../market/market.service');
 const User = require('./user.model');
-const { signToken } = require('../../auth/auth.services')
 
 async function getAllUsersHandler(req, res) {
+  console.log(
+    '🚀 ~ file: user.controller.js ~ line 17 ~ getAllUsersHandler ~ req',
+    req.user,
+  );
   try {
     const users = await getAllUsers();
 
@@ -31,13 +37,13 @@ async function createUserHandler(req, res) {
     const matchUserEmail = await ValidateUserEmail(email);
     if (matchUserEmail) {
       return res.status(403).json({
-        error: 'used email',
+        message: 'used email',
       });
     }
     const matchUserName = await ValidateUserName(username);
     if (matchUserName) {
       return res.status(403).json({
-        error: 'used username',
+        message: 'used username',
       });
     }
     const marketData = {
@@ -52,8 +58,35 @@ async function createUserHandler(req, res) {
       ...req.body,
       marketId: _id,
     };
-    const user = await createUser(newUser);
-    return res.status(201).json(user);
+
+    try {
+      const hash = crypto
+        .createHash('sha256')
+        .update(newUser.email)
+        .digest('hex');
+
+      newUser.passwordResetToken = hash;
+      newUser.passwordResetExpires = Date.now() + 3600000 * 24; // 24 hour
+
+      const user = await createUser(newUser);
+
+      const email = {
+        to: user.email,
+        subject: '¡Activa tu cuenta en Marktpul!',
+        template_id: 'd-7300e5c8c797411991fc03c9e2358927',
+        dynamic_template_data: {
+          username: user.username,
+          url: `http://localhost:8080/activate/${hash}`,
+        },
+      };
+      sendEmail(email);
+      return res.status(201).json(user.profile);
+    } catch (error) {
+      console.error(error);
+      res.status(400).json(error);
+    }
+
+    // return res.status(201).json(user.profile);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -102,27 +135,15 @@ async function deleteUserHandler(req, res) {
     return res.status(500).json({ error: error.message });
   }
 }
-async function loginUSerHandler(req, res) {
-  const { email, password } = req.body;
+async function getUserMeHandler(req, res) {
   try {
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      console.log('no hay user')
-      return res.status(400).json({
-        message: 'User not found',
-      });
-    }
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(400).json({
-        message: 'Invalid password',
-      });
-    }
-    const token = signToken(user.profile);
-    res.status(200).json({ JWT: token });
+    return res.status(200).json(req.user);
   } catch (error) {
-    res.status(400).json(error);
+    console.log(
+      '🚀 ~ file: user.controller.js ~ line 142 ~ getUserMeHandler ~ error',
+      error,
+    );
+    return res.status(400).json({ error: error.message });
   }
 }
 async function getUserMeHandler(req, res) {
@@ -142,6 +163,5 @@ module.exports = {
   getUserByIdHandler,
   updateUserHandler,
   deleteUserHandler,
-  loginUSerHandler,
   getUserMeHandler
 };
