@@ -4,7 +4,13 @@
   "description": "Una plataforma que te permita organizar \"Mercados\" para poder vender, comprar, alquilar cualquier tipo de producto* o servicio. Esto es un\"Mercado de las pulgas\" (Flea market) online. ## Acerca de este repositorio",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
   },
   "repository": {
     "type": "git",
@@ -16,5 +22,25 @@
   "bugs": {
     "url": "https://github.com/jocdiazm/MarktPul-B/issues"
   },
-  "homepage": "https://github.com/jocdiazm/MarktPul-B#readme"
+  "homepage": "https://github.com/jocdiazm/MarktPul-B#readme",
+  "dependencies": {
+    "@sendgrid/mail": "^7.6.0",
+    "bcrypt": "^5.0.1",
+    "composable-middleware": "^0.3.0",
+    "cors": "^2.8.5",
+    "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
+    "epayco-sdk-node": "^1.1.0",
+    "express": "^4.17.1",
+    "joi": "^17.5.0",
+    "joi-objectid": "^4.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.1.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "pino": "^7.6.4",
+    "pino-http": "^6.6.0",
+    "pino-pretty": "^7.5.0"
+  }
 }
