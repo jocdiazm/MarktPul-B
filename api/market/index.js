@@ -21,12 +21,7 @@ router.post(
   validate(MarketSchema, 'body'),
   createMarketHandler,
 );
-router.get(
-  '/:id',
-  isAuthenticated(),
-  validate(MarketSchema, 'params'),
-  getMarketByIdHandler,
-);
+router.get('/:id', validate(MarketSchema, 'params'), getMarketByIdHandler);
 router.delete('/:id', hasRole(['admin']), deleteMarketHandler);
 router.patch('/:id', isAuthenticated(), updateMarketHandler);
 

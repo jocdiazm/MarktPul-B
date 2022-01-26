@@ -19,12 +19,7 @@ router.post(
   validate(ProductSchema, 'body'),
   createProductHandler,
 );
-router.get(
-  '/:id',
-  isAuthenticated,
-  validate(ProductSchema, 'params'),
-  getProductByIdHandler,
-);
+router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
 router.delete('/:id', isAuthenticated, deleteProductHandler);
 router.patch('/:id', isAuthenticated, updateProductHandler);
 
