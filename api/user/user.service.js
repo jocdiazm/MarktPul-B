@@ -1,3 +1,4 @@
+const get = require('lodash/get');
 const User = require('./user.model');
 const { sendEmail } = require('../../utils/email');
 /**
@@ -13,11 +14,7 @@ async function getAllUsers() {
     throw error;
   }
 }
-/**
- * Get user by id
- * @param {string} id Indentifier of the note to be filtered
- * @returns user
- */
+
 async function getUserById(id) {
   try {
     const user = await User.findById(id).populate('marketId');
@@ -26,28 +23,17 @@ async function getUserById(id) {
     throw error;
   }
 }
-/**
- * Create a new user
- * @param {Object} user User to create
- * @returns User created
- */
+
 async function createUser(user) {
   try {
     const newUser = await User.create(user);
 
     return newUser;
-    /* const newUser = new User(user);
-    const savedUser = await newUser.save();
-    return savedUser; */
   } catch (error) {
     throw error;
   }
 }
-/**
- * Update a user
- * @param {string} id  Indentifier of the note to be updated
- * @returns User updated
- */
+
 async function updateUser(id, user) {
   try {
     const updatedUser = await User.findByIdAndUpdate(id, user);
@@ -56,11 +42,7 @@ async function updateUser(id, user) {
     throw error;
   }
 }
-/**
- * Delete a user
- * @param {string} id  Indentifier of the note to be updated
- * @returns User deleted
- */
+
 async function deleteUser(id) {
   try {
     const deletedUser = await User.findByIdAndDelete(id);
@@ -77,10 +59,44 @@ async function getUserByEmail(email) {
     throw error;
   }
 }
+
+async function addBillingCards(user, card) {
+  const creditCards = get(user, 'billing.creditCards', []);
+  const customer = {
+    billing: {
+      creditCards: creditCards.concat(card),
+    },
+  };
+
+  const updatedUser = await User.findByIdAndUpdate(user._id, customer, {
+    new: true,
+  });
+
+  return updatedUser;
+}
+
+async function addBillingCustomerId(user, customerId) {
+  const creditCards = get(user, 'billing.creditCards', []);
+
+  const customer = {
+    billing: {
+      creditCards,
+      customerId,
+    },
+  };
+
+  const updatedUser = await User.findByIdAndUpdate(user._id, customer, {
+    new: true,
+  });
+
+  return updatedUser;
+}
+
 async function findOneUser(query) {
   const user = await User.findOne(query);
   return user;
 }
+
 async function ValidateUserEmail(email) {
   try {
     const isMatch = await User.findOne({ email });
@@ -110,6 +126,8 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserByEmail,
+  addBillingCards,
+  addBillingCustomerId,
   findOneUser,
   ValidateUserEmail,
   ValidateUserName,

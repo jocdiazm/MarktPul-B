@@ -14,6 +14,10 @@ const { createMarket } = require('../market/market.service');
 const User = require('./user.model');
 
 async function getAllUsersHandler(req, res) {
+  console.log(
+    '🚀 ~ file: user.controller.js ~ line 17 ~ getAllUsersHandler ~ req',
+    req.user,
+  );
   try {
     const users = await getAllUsers();
 
@@ -33,13 +37,13 @@ async function createUserHandler(req, res) {
     const matchUserEmail = await ValidateUserEmail(email);
     if (matchUserEmail) {
       return res.status(403).json({
-        error: 'used email',
+        message: 'used email',
       });
     }
     const matchUserName = await ValidateUserName(username);
     if (matchUserName) {
       return res.status(403).json({
-        error: 'used username',
+        message: 'used username',
       });
     }
     const marketData = {
@@ -79,7 +83,7 @@ async function createUserHandler(req, res) {
       return res.status(201).json(user.profile);
     } catch (error) {
       console.error(error);
-      res.status(400).json(Error);
+      res.status(400).json(error);
     }
 
     // return res.status(201).json(user.profile);
@@ -131,11 +135,33 @@ async function deleteUserHandler(req, res) {
     return res.status(500).json({ error: error.message });
   }
 }
-
+async function getUserMeHandler(req, res) {
+  try {
+    return res.status(200).json(req.user);
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: user.controller.js ~ line 142 ~ getUserMeHandler ~ error',
+      error,
+    );
+    return res.status(400).json({ error: error.message });
+  }
+}
+async function getUserMeHandler(req, res) {
+  try {
+    return res.status(200).json(req.user);
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: user.controller.js ~ line 142 ~ getUserMeHandler ~ error',
+      error,
+    );
+    return res.status(400).json({ error: error.message });
+  }
+}
 module.exports = {
   getAllUsersHandler,
   createUserHandler,
   getUserByIdHandler,
   updateUserHandler,
   deleteUserHandler,
+  getUserMeHandler,
 };

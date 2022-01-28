@@ -12,19 +12,14 @@ const {
 const { isAuthenticated } = require('../../auth/auth.services');
 const router = Router();
 
-router.get('/', isAuthenticated, getAllProductsHandler);
+router.get('/', getAllProductsHandler);
 router.post(
   '/',
   isAuthenticated,
   validate(ProductSchema, 'body'),
   createProductHandler,
 );
-router.get(
-  '/:id',
-  isAuthenticated,
-  validate(ProductSchema, 'params'),
-  getProductByIdHandler,
-);
+router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
 router.delete('/:id', isAuthenticated, deleteProductHandler);
 router.patch('/:id', isAuthenticated, updateProductHandler);
 
