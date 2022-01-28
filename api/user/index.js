@@ -8,7 +8,7 @@ const {
   getAllUsersHandler,
   getUserByIdHandler,
   updateUserHandler,
-  getUserMeHandler
+  getUserMeHandler,
 } = require('./user.controller');
 
 const { isAuthenticated } = require('../../auth/auth.services');
@@ -28,4 +28,3 @@ router.delete('/:id', isAuthenticated(), deleteUserHandler);
 router.patch('/:id', isAuthenticated(), updateUserHandler);
 
 module.exports = router;
-{_id:61ec5e8b151bcfee7dfec4b9}
