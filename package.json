@@ -40,7 +40,6 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "pino": "^7.6.4",
-    "pino-http": "^6.6.0",
     "pino-pretty": "^7.5.0"
   }
 }
