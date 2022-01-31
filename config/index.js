@@ -6,7 +6,7 @@ const config = {
   secrets: {
     session: process.env.SECRET_KEY || 'S0p0rt31',
   },
-  expiresIn: '1h',
+  expiresIn: '3h',
   userRoles: ['user', 'admin'],
 };
 

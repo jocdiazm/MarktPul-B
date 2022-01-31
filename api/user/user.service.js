@@ -1,5 +1,10 @@
 const get = require('lodash/get');
 const User = require('./user.model');
+const { sendEmail } = require('../../utils/email');
+/**
+ * Get all users
+ * @returns all users
+ */
 
 async function getAllUsers() {
   try {
@@ -22,6 +27,7 @@ async function getUserById(id) {
 async function createUser(user) {
   try {
     const newUser = await User.create(user);
+
     return newUser;
   } catch (error) {
     throw error;

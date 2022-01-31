@@ -14,16 +14,20 @@ const {
 const { isAuthenticated } = require('../../auth/auth.services');
 const router = Router();
 
-router.get('/', isAuthenticated(), getAllProductsHandler);
+router.get('/', getAllProductsHandler);
+
 router.post('/',
- isAuthenticated(),
-  upload.any(), validate(ProductSchema, 'body'), createProductHandler);
+isAuthenticated(),
+validate(ProductSchema, 'body'),
+createProductHandler);
+
 router.get(
   '/:id',
-  isAuthenticated,
+  isAuthenticated(),
   validate(ProductSchema, 'params'),
   getProductByIdHandler,
 );
+
 router.delete('/:id', isAuthenticated, deleteProductHandler);
 router.patch('/:id', isAuthenticated, updateProductHandler);
 
