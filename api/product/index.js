@@ -1,8 +1,8 @@
 const { Router } = require('express');
-const { ProductSchema } = require('./product.schema')
-const { validate } = require('../../middleware/validateRequest')
-const multer = require('multer')
-const upload = multer({ dest:'./temp'})
+const { ProductSchema } = require('./product.schema');
+const { validate } = require('../../middleware/validateRequest');
+const multer = require('multer');
+const upload = multer({ dest: './temp' });
 
 const {
   createProductHandler,
@@ -10,16 +10,19 @@ const {
   getAllProductsHandler,
   getProductByIdHandler,
   updateProductHandler,
+  getProductsByMarketIdHandler,
 } = require('./product.controller');
 const { isAuthenticated } = require('../../auth/auth.services');
 const router = Router();
 
 router.get('/', getAllProductsHandler);
 
-router.post('/',
-isAuthenticated(),
-validate(ProductSchema, 'body'),
-createProductHandler);
+router.post(
+  '/',
+  isAuthenticated(),
+  validate(ProductSchema, 'body'),
+  createProductHandler,
+);
 
 router.get(
   '/:id',
@@ -27,8 +30,9 @@ router.get(
   validate(ProductSchema, 'params'),
   getProductByIdHandler,
 );
-
-router.delete('/:id', isAuthenticated(), deleteProductHandler);
-router.patch('/:id', isAuthenticated(), updateProductHandler);
+router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
+router.get('/report/:id', getProductsByMarketIdHandler);
+router.delete('/:id', isAuthenticated, deleteProductHandler);
+router.patch('/:id', isAuthenticated, updateProductHandler);
 
 module.exports = router;

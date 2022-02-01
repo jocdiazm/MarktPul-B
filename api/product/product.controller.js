@@ -8,20 +8,21 @@ const {
   createProduct,
   deleteProduct,
   getProductById,
-  updateProduct
-} = require('./product.service')
+  updateProduct,
+  getProductsByMarketId,
+} = require('./product.service');
 
 async function getAllProductsHandler(req, res) {
   try {
     const products = await getAllProducts();
 
-    if(products.length == 0){
+    if (products.length == 0) {
       return res.status(404).json({ message: `no products found` });
     }
 
     return res.status(200).json(products);
   } catch (error) {
-    return res.status(500).json({ error : error.message})
+    return res.status(500).json({ error: error.message });
   }
 }
 
@@ -36,7 +37,7 @@ async function createProductHandler(req, res) {
   }catch(error){
     res.status(500).json(error)
   }
-  res.send(req.file)
+  res.send(req.file);
 }
 
 async function getProductByIdHandler(req, res) {
@@ -45,9 +46,10 @@ async function getProductByIdHandler(req, res) {
     const product = await getProductById(id);
 
     if (!product) {
-      return res.status(404).json({ message: `product not found with id: ${id}` });
+      return res
+        .status(404)
+        .json({ message: `product not found with id: ${id}` });
     }
-
     return res.status(200).json(product);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -56,17 +58,18 @@ async function getProductByIdHandler(req, res) {
 
 async function updateProductHandler(req, res) {
   const { id } = req.params;
-  const { price, description, title } = req.body
+  const { price, description, title } = req.body;
   try {
-
-    if(!price && !description && !title){
-      return res.status(422).json({ response: 'Missing values in the body' })
+    if (!price && !description && !title) {
+      return res.status(422).json({ response: 'Missing values in the body' });
     }
 
     const product = await updateProduct(id, req.body);
 
     if (!product) {
-      return res.status(404).json({ message: `product not found with id: ${id}` });
+      return res
+        .status(404)
+        .json({ message: `product not found with id: ${id}` });
     }
 
     return res.status(200).json(product);
@@ -81,12 +84,28 @@ async function deleteProductHandler(req, res) {
     const product = await deleteProduct(id);
 
     if (!product) {
-      return res.status(404).json({ message: `product not found with id: ${id}` });
+      return res
+        .status(404)
+        .json({ message: `product not found with id: ${id}` });
     }
 
     return res.status(200).json(product);
   } catch (error) {
     return res.status(500).json({ error: error.message });
+  }
+}
+async function getProductsByMarketIdHandler(req, res) {
+  const { id } = req.params;
+  try {
+    const products = await getProductsByMarketId(id);
+    if (!products) {
+      return res
+        .status(404)
+        .json({ message: `MarketId not found with id: ${id}` });
+    }
+    return res.status(200).json(products);
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -96,4 +115,5 @@ module.exports = {
   getProductByIdHandler,
   updateProductHandler,
   deleteProductHandler,
-}
+  getProductsByMarketIdHandler,
+};
