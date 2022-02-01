@@ -8,6 +8,7 @@ const {
   getAllProductsHandler,
   getProductByIdHandler,
   updateProductHandler,
+  getProductsByMarketIdHandler,
 } = require('./product.controller');
 const { isAuthenticated } = require('../../auth/auth.services');
 const router = Router();
@@ -20,6 +21,7 @@ router.post(
   createProductHandler,
 );
 router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
+router.get('/report/:id', getProductsByMarketIdHandler);
 router.delete('/:id', isAuthenticated, deleteProductHandler);
 router.patch('/:id', isAuthenticated, updateProductHandler);
 

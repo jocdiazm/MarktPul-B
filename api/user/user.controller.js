@@ -1,6 +1,5 @@
 const crypto = require('crypto');
 const { sendEmail } = require('../../utils/email');
-
 const {
   getAllUsers,
   createUser,

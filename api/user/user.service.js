@@ -119,6 +119,14 @@ async function ValidateUserName(username) {
     }
   } catch (error) {}
 }
+async function getProductsPurchased(user) {
+  try {
+    const user = await User.findById(id).populate('marketId');
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
 module.exports = {
   getAllUsers,
   getUserById,

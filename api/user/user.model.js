@@ -4,7 +4,8 @@ const { UserSchema } = require('./user.schema');
 const { Schema } = mongoose;
 const config = require('../../config');
 
-const CreditCardSchema = new mongoose.Schema({
+const CreditCardSchema = new mongoose.Schema(
+  {
     expMonth: {
       type: String,
       required: true,
@@ -42,7 +43,8 @@ const BillingSchema = new mongoose.Schema(
   { _id: false },
 );
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     gender: String,
     name: {
       title: String,
@@ -113,7 +115,8 @@ const userSchema = new Schema({
       required: true,
     },
     marketId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Array,
+      // type: mongoose.Schema.Types.ObjectId,
       ref: 'Market',
       // required: true,
     },
