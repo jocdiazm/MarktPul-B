@@ -28,7 +28,7 @@ router.get(
   getProductByIdHandler,
 );
 
-router.delete('/:id', isAuthenticated, deleteProductHandler);
-router.patch('/:id', isAuthenticated, updateProductHandler);
+router.delete('/:id', isAuthenticated(), deleteProductHandler);
+router.patch('/:id', isAuthenticated(), updateProductHandler);
 
 module.exports = router;
