@@ -113,11 +113,11 @@ const userSchema = new Schema({
       enum: config.userRoles,
       required: true,
     },
-    marketId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Market',
-      // required: true,
-    },
+    marketId: [{
+      type: String,
+      ref:'Market',
+      required: true,
+    }],
     active: {
       type: Boolean,
       default: false,
