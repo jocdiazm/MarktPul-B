@@ -159,8 +159,8 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 userSchema.virtual('profile').get(function () {
-  const { email, role } = this;
-  return { role, email };
+  const { email, role, _id } = this;
+  return { role, email, _id };
 });
 
 module.exports = mongoose.model('User', userSchema);
