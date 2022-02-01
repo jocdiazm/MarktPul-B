@@ -8,7 +8,7 @@ const {
   getAllUsersHandler,
   getUserByIdHandler,
   updateUserHandler,
-  getUserMeHandler
+  getUserMeHandler,
 } = require('./user.controller');
 
 const { isAuthenticated } = require('../../auth/auth.services');
