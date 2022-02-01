@@ -4,7 +4,8 @@ const { UserSchema } = require('./user.schema');
 const { Schema } = mongoose;
 const config = require('../../config');
 
-const CreditCardSchema = new mongoose.Schema({
+const CreditCardSchema = new mongoose.Schema(
+  {
     expMonth: {
       type: String,
       required: true,
@@ -42,7 +43,8 @@ const BillingSchema = new mongoose.Schema(
   { _id: false },
 );
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     gender: String,
     name: {
       title: String,
@@ -154,8 +156,8 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 userSchema.virtual('profile').get(function () {
-  const { email, role } = this;
-  return { role, email };
+  const { email, role, username } = this;
+  return { role, email, username };
 });
 
 module.exports = mongoose.model('User', userSchema);
