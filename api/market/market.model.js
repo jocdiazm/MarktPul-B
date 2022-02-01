@@ -18,10 +18,8 @@ const MarketSchema = new Schema({
     country: String,
     moreDetails: String,
   },
-  // address: String,
-  // city: String,
-  // country: String,
-  // moreDetails: String,
+  category: String,
+  image: String,
   coordinates: {
     latitude: String,
     longitude: String,
@@ -35,9 +33,6 @@ const MarketSchema = new Schema({
     medium: String,
     thumbnail: String,
   },
-  category: String,
-  image: String,
-  place: String,
 });
 
 module.exports = mongoose.model('Market', MarketSchema);
