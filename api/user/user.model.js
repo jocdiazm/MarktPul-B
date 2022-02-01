@@ -52,6 +52,7 @@ const userSchema = new Schema(
       last: String,
     },
     location: {
+      address: String,
       street: String,
       city: String,
       state: String,
@@ -114,12 +115,13 @@ const userSchema = new Schema(
       enum: config.userRoles,
       required: true,
     },
-    marketId: {
-      type: Array,
-      // type: mongoose.Schema.Types.ObjectId,
-      ref: 'Market',
-      // required: true,
-    },
+    marketId: [
+      {
+        type: String,
+        ref: 'Market',
+        required: true,
+      },
+    ],
     active: {
       type: Boolean,
       default: false,
