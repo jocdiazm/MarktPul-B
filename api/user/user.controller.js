@@ -157,6 +157,7 @@ async function getUserMeHandler(req, res) {
     return res.status(400).json({ error: error.message });
   }
 }
+
 module.exports = {
   getAllUsersHandler,
   createUserHandler,

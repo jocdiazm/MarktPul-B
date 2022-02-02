@@ -119,6 +119,7 @@ async function ValidateUserName(username) {
     }
   } catch (error) {}
 }
+
 module.exports = {
   getAllUsers,
   getUserById,
