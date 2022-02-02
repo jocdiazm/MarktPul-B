@@ -14,7 +14,6 @@ function isAuthenticated() {
     try {
       //obtenemos el token de autorizacion
       const authHeader = req.headers.authorization;
-      console.log('entro en autenticacion');
       if (authHeader) {
         const [, token] = authHeader.split(' ');
         //validamos el token

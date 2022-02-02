@@ -8,7 +8,7 @@ const { sendEmail } = require('../../utils/email');
 
 async function getAllUsers() {
   try {
-    const users = await User.find();
+    const users = await User.find().populate('marketId');
     return users;
   } catch (error) {
     throw error;
