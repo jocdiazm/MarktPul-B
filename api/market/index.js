@@ -15,19 +15,14 @@ const { isAuthenticated, hasRole } = require('../../auth/auth.services');
 const router = Router();
 
 router.get('/', getAllMarketsHandler);
-router.post('/',  isAuthenticated(), createMarketHandler);
+router.post('/', isAuthenticated(), createMarketHandler);
 router.post(
   '/',
   isAuthenticated(),
   validate(MarketSchema, 'body'),
   createMarketHandler,
 );
-router.get(
-  '/:id',
-  isAuthenticated(),
-  validate(MarketSchema, 'params'),
-  getMarketByIdHandler,
-);
+router.get('/:id', validate(MarketSchema, 'params'), getMarketByIdHandler);
 router.delete('/:id', hasRole(['admin']), deleteMarketHandler);
 router.patch('/:id', isAuthenticated(), updateMarketHandler);
 
