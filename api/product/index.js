@@ -24,12 +24,7 @@ router.post(
   createProductHandler,
 );
 
-router.get(
-  '/:id',
-  isAuthenticated(),
-  validate(ProductSchema, 'params'),
-  getProductByIdHandler,
-);
+router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
 router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
 router.get('/report/:id', getProductsByMarketIdHandler);
 router.delete('/:id', isAuthenticated, deleteProductHandler);
