@@ -8,7 +8,7 @@ const { sendEmail } = require('../../utils/email');
 
 async function getAllUsers() {
   try {
-    const users = await User.find();
+    const users = await User.find().populate('marketId');
     return users;
   } catch (error) {
     throw error;
@@ -119,6 +119,16 @@ async function ValidateUserName(username) {
     }
   } catch (error) {}
 }
+
+async function getProductsPurchased(user) {
+  try {
+    const user = await User.findById(id).populate('marketId');
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getAllUsers,
   getUserById,

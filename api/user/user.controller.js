@@ -1,6 +1,5 @@
 const crypto = require('crypto');
 const { sendEmail } = require('../../utils/email');
-
 const {
   getAllUsers,
   createUser,
@@ -50,6 +49,9 @@ async function createUserHandler(req, res) {
       title: `el mercado de ${username}`,
       description: '',
       organizer: username,
+      image:
+        'https://res.cloudinary.com/db3njhxi0/image/upload/v1639700587/Markt-Pul/Markets/mercadoPorDefecto_aukqrf.jpg',
+      virtual: true,
     };
     const market = await createMarket(marketData);
 
@@ -157,6 +159,7 @@ async function getUserMeHandler(req, res) {
     return res.status(400).json({ error: error.message });
   }
 }
+
 module.exports = {
   getAllUsersHandler,
   createUserHandler,

@@ -26,7 +26,7 @@ const PayloadSchema = Joi.object().keys({
   phone: Joi.string(),
   cell: Joi.string(),
   picture: Joi.string(),
-  nat: Joi.string(),
+  country: Joi.string(),
   role: Joi.string().default('user'),
   marketId: Joi.objectId(),
   //required(),
