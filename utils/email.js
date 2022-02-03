@@ -6,7 +6,7 @@ async function sendEmail(data) {
 
   const msg = {
     to: data.to, // Change to your recipient
-    from: 'No Reply<marktpul@gmail.com>', // Change to your verified sender
+    from: `noreply<${process.env.SENDGRID_EMAIL}>`, // Change to your verified sender
     subject: data.subject,
     template_id: data.template_id,
     dynamic_template_data: data.dynamic_template_data,
