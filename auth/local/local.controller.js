@@ -45,7 +45,7 @@ async function recoverPassHandler(req, res) {
         template_id: 'd-7463fbfb5394441b9b8bab2ef71d1458',
         dynamic_template_data: {
           username: newUser.username,
-          url: `http://localhost:3000/resetPass/${newUser.passwordResetToken}`,
+          url: `https://marktpulf.netlify.app/resetPass/${newUser.passwordResetToken}`,
         },
       };
       sendEmail(emailHTML);
