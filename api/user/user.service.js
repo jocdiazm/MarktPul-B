@@ -36,7 +36,9 @@ async function createUser(user) {
 
 async function updateUser(id, user) {
   try {
-    const updatedUser = await User.findByIdAndUpdate(id, user);
+    const updatedUser = await User.findByIdAndUpdate(id, user, {
+      new: true,
+    });
     return updatedUser;
   } catch (error) {
     throw error;
