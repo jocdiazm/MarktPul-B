@@ -103,12 +103,13 @@ const userSchema = new Schema(
     },
     phone: String,
     cell: String,
-    picture: {
-      large: String,
-      medium: String,
-      thumbnail: String,
-    },
-    nat: String,
+    // picture: {
+    //   large: String,
+    //   medium: String,
+    //   thumbnail: String,
+    // },
+    picture: String,
+    country: String,
     role: {
       type: String,
       default: 'user',
