@@ -14,13 +14,12 @@ function isAuthenticated() {
     try {
       //obtenemos el token de autorizacion
       const authHeader = req.headers.authorization;
-      console.log('entro en autenticacion')
       if (authHeader) {
         const [, token] = authHeader.split(' ');
         //validamos el token
         const payload = await validateToken(token);
         if (!payload) {
-          console.log('token no valido')
+          console.log('token no valido');
           return res
             .status(401)
             .json({
@@ -31,7 +30,7 @@ function isAuthenticated() {
         //atach user to request
         const user = await getUserByEmail(payload.email);
         if (!user) {
-          console.log('entra en no user')
+          console.log('entra en no user');
           return res
             .status(401)
             .json({

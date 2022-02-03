@@ -4,7 +4,8 @@ const { UserSchema } = require('./user.schema');
 const { Schema } = mongoose;
 const config = require('../../config');
 
-const CreditCardSchema = new mongoose.Schema({
+const CreditCardSchema = new mongoose.Schema(
+  {
     expMonth: {
       type: String,
       required: true,
@@ -42,7 +43,8 @@ const BillingSchema = new mongoose.Schema(
   { _id: false },
 );
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     gender: String,
     name: {
       title: String,
@@ -50,6 +52,7 @@ const userSchema = new Schema({
       last: String,
     },
     location: {
+      address: String,
       street: String,
       city: String,
       state: String,
@@ -112,11 +115,13 @@ const userSchema = new Schema({
       enum: config.userRoles,
       required: true,
     },
-    marketId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Market',
-      // required: true,
-    },
+    marketId: [
+      {
+        type: String,
+        ref: 'Market',
+        required: true,
+      },
+    ],
     active: {
       type: Boolean,
       default: false,
@@ -154,8 +159,8 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 userSchema.virtual('profile').get(function () {
-  const { email, role } = this;
-  return { role, email };
+  const { email, role, _id, username } = this;
+  return { role, email, _id, username };
 });
 
 module.exports = mongoose.model('User', userSchema);

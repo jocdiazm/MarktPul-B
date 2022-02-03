@@ -1,6 +1,5 @@
 const pino = require('pino');
 const dayjs = require('dayjs');
-const pinoHttp = require('pino-http')
 
 const transport = pino.transport({
   target: 'pino-pretty',
