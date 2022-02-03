@@ -98,20 +98,20 @@ async function updatePassHandler(req, res) {
     });
   }
 }
-    async function validateEmailHandler(req, res) {
-      const { hash } = req.body;
-      try {
-        const user = await findOneUser({ passwordResetToken: hash });
-        if (!user) {
-          return res.status(404).json({
-            message: 'Invalid token',
-          });
-        }
-      if (Date.now() >= user.passwordResetToken) {
-        return res.status(404).json({
-          message: 'Token Expired',
-        });
-      }
+async function validateEmailHandler(req, res) {
+  const { hash } = req.body;
+  try {
+    const user = await findOneUser({ passwordResetToken: hash });
+    if (!user) {
+      return res.status(404).json({
+        message: 'Invalid token',
+      });
+    }
+    if (Date.now() >= user.passwordResetToken) {
+      return res.status(404).json({
+        message: 'Token Expired',
+      });
+    }
 
     user.active = true;
     user.passwordResetToken = null;
