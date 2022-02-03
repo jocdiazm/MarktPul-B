@@ -18,13 +18,15 @@ async function uploadSingleHandler(req, res) {
 }
 
 async function uploadArrayHandler(req, res) {
-  const { files } = req;
   const results = [];
+  const { files, body } = req;
+  const options = {};
+  if (body?.folder) {
+    options.folder = body.folder;
+  }
   for (const file of files) {
     try {
-      const result = await cloudinary.uploader.upload(file.path, {
-        folder: 'Markt-Pul/Products',
-      });
+      const result = await cloudinary.uploader.upload(file.path, options);
       fs.unlinkSync(file.path);
       results.push(result);
     } catch (error) {
