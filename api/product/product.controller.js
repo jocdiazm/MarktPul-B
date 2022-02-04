@@ -69,7 +69,9 @@ async function updateProductHandler(req, res) {
       return res.status(422).json({ response: 'Missing values in the body' });
     }
 
-    const product = await updateProduct(id, req.body);
+    const product = await updateProduct(id, req.body, {
+      new: true,
+    });
 
     if (!product) {
       return res

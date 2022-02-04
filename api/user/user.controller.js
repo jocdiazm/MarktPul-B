@@ -111,7 +111,9 @@ async function getUserByIdHandler(req, res) {
 async function updateUserHandler(req, res) {
   const { id } = req.params;
   try {
-    const user = await updateUser(id, req.body);
+    const user = await updateUser(id, req.body, {
+      new: true,
+    });
 
     if (!user) {
       return res.status(404).json({ message: `user not found with id: ${id}` });
