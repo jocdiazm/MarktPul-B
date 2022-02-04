@@ -118,7 +118,7 @@ const userSchema = new Schema(
     },
     marketId: [
       {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: 'Market',
         required: true,
       },
