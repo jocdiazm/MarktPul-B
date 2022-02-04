@@ -58,11 +58,11 @@ async function getProductByIdHandler(req, res) {
 
 async function updateProductHandler(req, res) {
   const { id } = req.params;
-  const { price, description, title } = req.body;
+  const { price, description, title, imageMain, category, images, marketId } = req.body;
   try {
-    if (!price && !description && !title) {
+    if (!price && !description && !title && !imageMain && !category && !images && !marketId) {
       return res.status(422).json({ response: 'Missing values in the body' });
-    }
+    };
 
     const product = await updateProduct(id, req.body);
 

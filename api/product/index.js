@@ -27,7 +27,7 @@ router.post(
 router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
 router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
 router.get('/report/:id', getProductsByMarketIdHandler);
-router.delete('/:id', isAuthenticated, deleteProductHandler);
-router.patch('/:id', isAuthenticated, updateProductHandler);
+router.delete('/:id', isAuthenticated(), deleteProductHandler);
+router.patch('/:id', isAuthenticated(), updateProductHandler);
 
 module.exports = router;
