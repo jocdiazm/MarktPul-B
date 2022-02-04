@@ -148,17 +148,6 @@ async function getUserMeHandler(req, res) {
     return res.status(400).json({ error: error.message });
   }
 }
-async function getUserMeHandler(req, res) {
-  try {
-    return res.status(200).json(req.user);
-  } catch (error) {
-    console.log(
-      '🚀 ~ file: user.controller.js ~ line 142 ~ getUserMeHandler ~ error',
-      error,
-    );
-    return res.status(400).json({ error: error.message });
-  }
-}
 
 module.exports = {
   getAllUsersHandler,

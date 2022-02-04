@@ -18,6 +18,10 @@ async function getAllUsers() {
 async function getUserById(id) {
   try {
     const user = await User.findById(id).populate('marketId');
+    console.log(
+      '🚀 ~ file: user.service.js ~ line 21 ~ getUserById ~ user',
+      user,
+    );
     return user;
   } catch (error) {
     throw error;
