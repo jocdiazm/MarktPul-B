@@ -1,1 +1,30 @@
-version 2.1
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
+version: 2.1
+
+orbs:
+  discord: antonioned/discord@0.1.0
+  heroku: circleci/heroku@1.2.6
+  cypress: cypress-io/cypress@1.29.0
+
+jobs:
+  discord-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - discord/status:
+          success_message: Repo deployed
+          failure_message: error
+          only_for_branches: develop
+workflows:
+  test:
+    jobs:
+      - cypress/run
+  discord-workflow:
+    jobs:
+      - discord-job
+  heroku-workflow:
+    jobs:
+      - heroku/deploy-via-git:
+          app-name: marktpul-bk
+          branch: develop
