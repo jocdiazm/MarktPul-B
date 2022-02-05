@@ -2,25 +2,22 @@ const Payment = require('./payment.model');
 const {
   makePayment,
   createCardToken,
-  createCustomer
+  createCustomer,
 } = require('./payment.service');
-
 
 async function makePaymentHandlers(req, res) {
   try {
-
     const { user, body: payment } = req;
+    let userData = user;
+    if (!user?.billing?.creditCards?.[0]?.tokenId) {
+      const createToken = await createCardToken(payment, user);
+      const customer = await createCustomer(createToken);
+      userData = customer;
+    }
 
-    let userData = user
-      if(!user?.billing?.creditCards?.[0]?.tokenId){
-        const createToken = await createCardToken(payment, user)
-        const customer = await createCustomer(createToken)
-        userData = customer
-      }
+    const { data, success } = await makePayment(userData, payment);
 
-      const { data, success } = await makePayment(userData, payment);
-
-      if (!success) {
+    if (!success) {
       return res.status(400).json(data);
     }
     const paymentcreate = await Payment.create({
@@ -30,7 +27,7 @@ async function makePaymentHandlers(req, res) {
       value: payment.value,
       tax: payment?.tax,
       taxBase: payment?.taxBase,
-      currency: payment.currency
+      currency: payment.currency,
     });
 
     return res.status(200).json({ success, data });
