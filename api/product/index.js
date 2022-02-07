@@ -20,11 +20,9 @@ router.get('/', getAllProductsHandler);
 router.post(
   '/',
   isAuthenticated(),
-  validate(ProductSchema, 'body'),
+  /* validate(ProductSchema, 'body'), */
   createProductHandler,
 );
-
-router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
 router.get('/:id', validate(ProductSchema, 'params'), getProductByIdHandler);
 router.get('/report/:id', getProductsByMarketIdHandler);
 router.delete('/:id', isAuthenticated, deleteProductHandler);

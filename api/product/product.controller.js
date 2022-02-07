@@ -27,7 +27,7 @@ async function getAllProductsHandler(req, res) {
 }
 
 async function createProductHandler(req, res) {
-  const { price, description, title } = req.body;
+  const { price, description, title, marketId } = req.body;
   const { user } = req;
   try {
     if (!price || !description || !title) {
@@ -35,7 +35,7 @@ async function createProductHandler(req, res) {
     }
     const newProduct = {
       ...req.body,
-      marketId: [user.marketId[0]],
+      marketId: marketId,
     };
     const responseCreateProduct = await createProduct(newProduct);
     return res.status(201).json(responseCreateProduct);
