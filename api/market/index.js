@@ -23,7 +23,7 @@ router.post(
   createMarketHandler,
 );
 router.get('/:id', validate(MarketSchema, 'params'), getMarketByIdHandler);
-router.delete('/:id', hasRole(['admin']), deleteMarketHandler);
+router.delete('/:id', hasRole(['user']), deleteMarketHandler);
 router.patch('/:id', isAuthenticated(), updateMarketHandler);
 
 module.exports = router;

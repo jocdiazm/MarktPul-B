@@ -13,10 +13,6 @@ const { createMarket } = require('../market/market.service');
 const User = require('./user.model');
 
 async function getAllUsersHandler(req, res) {
-  console.log(
-    '🚀 ~ file: user.controller.js ~ line 17 ~ getAllUsersHandler ~ req',
-    req.user,
-  );
   try {
     const users = await getAllUsers();
 
