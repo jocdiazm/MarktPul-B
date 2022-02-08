@@ -61,7 +61,7 @@ async function makePayment(user, payment) {
     doc_type: get(payment, 'docType'),
     doc_number: get(payment, 'docNumber'),
     name: get(payment, 'firstName', user.username),
-    last_name: get(payment, 'lastName', user.username),
+    last_name : ' ',
     email: get(payment, 'email', user.email),
     city: get(payment, 'city'),
     address: get(payment, 'address'),
