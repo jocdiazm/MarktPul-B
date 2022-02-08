@@ -47,7 +47,9 @@ async function createProduct(product) {
  */
 async function updateProduct(id, product) {
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(id, product);
+    const updatedProduct = await Product.findByIdAndUpdate(id, product, {
+      new: true,
+    });
     return updatedProduct;
   } catch (error) {
     throw error;
