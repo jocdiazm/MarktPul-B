@@ -60,9 +60,7 @@ async function updateMarketHandler(req, res) {
       return res.status(422).json({ response: 'Missing values in the body' });
     }
 
-    const market = await updateMarket(id, req.body, {
-      new: true,
-    });
+    const market = await updateMarket(id, req.body);
 
     if (!market) {
       return res
@@ -70,7 +68,7 @@ async function updateMarketHandler(req, res) {
         .json({ message: `product not found with id: ${id}` });
     }
 
-    return res.status(204).json(market);
+    return res.status(200).json(market);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

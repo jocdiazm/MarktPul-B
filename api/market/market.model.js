@@ -12,23 +12,23 @@ const MarketSchema = new Schema({
   organizer: {
     type: String,
   },
-  place:{
-    address: String,
-    city: String,
-    country: String,
-    moreDetails: String,
-  },
-  // address: String,
-  // city: String,
-  // country: String,
-  // moreDetails: String,
+  // place: {
+  //   address: String,
+  //   city: String,
+  //   country: String,
+  //   moreDetails: String,
+  // },
+  address: String,
+  city: String,
+  country: String,
+  moreDetails: String,
   coordinates: {
     latitude: String,
     longitude: String,
   },
   timezone: String,
   virtual: {
-    type: String,
+    type: Boolean,
   },
   thumbnail: {
     large: String,
